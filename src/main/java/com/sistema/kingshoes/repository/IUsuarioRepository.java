@@ -9,5 +9,6 @@ import com.sistema.kingshoes.entities.Usuario;
 @Repository
 public interface IUsuarioRepository  extends JpaRepository<Usuario, Integer>{
 	Optional<Usuario> findByCorreo(String correo);
+	Optional<Usuario> findByCedula(Integer cedula);
 	boolean existsByCorreo(String correo);
 }

@@ -3,11 +3,7 @@ package com.sistema.kingshoes.controller;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.catalina.connector.Response;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sistema.kingshoes.dto.Mensaje;
-import com.sistema.kingshoes.dto.UsuarioDto;
+
 import com.sistema.kingshoes.entities.Usuario;
-import com.sistema.kingshoes.service.UsuarioService;
+import com.sistema.kingshoes.repository.IUsuarioRepository;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -29,7 +24,95 @@ import com.sistema.kingshoes.service.UsuarioService;
 public class UsuarioController {
 	
 	@Autowired
-	private UsuarioService usuarioService;
+	private IUsuarioRepository usuarioRepository;
+	
+	@GetMapping
+	public List<Usuario>lista(){
+		return usuarioRepository.findAll();
+	}
+	@GetMapping("/buscar/{id}")
+	public Usuario getUsuariosbyId(@PathVariable int id) {
+		
+		Optional<Usuario> usuario = usuarioRepository.findById(id);
+		
+		if (usuario.isPresent()) {
+			return usuario.get();
+		}
+		
+		return null;
+
+	}
+	
+	@GetMapping("/cedula/{cedula}")
+	public Usuario findUsuarioByCedula(@PathVariable Integer cedula){
+		Optional<Usuario>usuario=usuarioRepository.findByCedula(cedula);
+		if(usuario.isPresent()) {
+		return usuario.get();
+		}
+		return null;
+	}
+	
+	
+	
+	@GetMapping("/correo/{correo}")
+	public Optional<Usuario>findUsuarioByCorreo(@PathVariable String correo){
+		Optional<Usuario>usuario=usuarioRepository.findByCorreo(correo);
+		if(usuario.isPresent()) {
+			return usuario;
+		}
+		return null;
+	}
+	
+	@PostMapping
+	public Usuario postUsuario(@RequestBody Usuario usuario){
+		usuarioRepository.save(usuario);
+		return usuario;
+		
+	}
+	
+	@PutMapping("/update/{id}")
+	public Usuario putUsuario(@RequestBody Usuario usuario,@PathVariable Integer id) {
+		Optional<Usuario>usuarioCurren=usuarioRepository.findById(id);
+		if(usuarioCurren.isPresent()) {
+			Usuario usuarioReturn =usuarioCurren.get();
+			usuarioReturn.setCedula( usuario.getCedula());
+			usuarioReturn.setNombre(usuario.getNombre());
+			usuarioReturn.setApellido(usuario.getApellido());
+			usuarioReturn.setCorreo(usuario.getCorreo());
+			usuarioReturn.setContraseña(usuario.getContraseña());
+			usuarioReturn.setSexo(usuario.getSexo());
+			usuarioReturn.setEstado(usuario.getEstado());
+			usuarioRepository.save(usuarioReturn);
+			return usuarioReturn;
+			
+		}
+		return null;
+	}
+	
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable Integer id) {
+		usuarioRepository.deleteById(id);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/*
 	@GetMapping
@@ -61,6 +144,7 @@ public class UsuarioController {
 	
 }
 */
+	/*
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Usuario> findUsuarioById(@PathVariable Integer id){
@@ -159,7 +243,7 @@ public class UsuarioController {
 	}
 	
 	
-	
+	*/
 	
 	
 
