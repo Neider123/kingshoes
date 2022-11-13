@@ -63,7 +63,7 @@ public class UsuarioController {
 		return null;
 	}
 	
-	@PostMapping
+	@PostMapping("/save")
 	public Usuario postUsuario(@RequestBody Usuario usuario){
 		usuarioRepository.save(usuario);
 		return usuario;
@@ -78,10 +78,11 @@ public class UsuarioController {
 			usuarioReturn.setCedula( usuario.getCedula());
 			usuarioReturn.setNombre(usuario.getNombre());
 			usuarioReturn.setApellido(usuario.getApellido());
+			usuarioReturn.setFecha_nacimiento(usuario.getFecha_nacimiento());
 			usuarioReturn.setCorreo(usuario.getCorreo());
 			usuarioReturn.setContraseña(usuario.getContraseña());
 			usuarioReturn.setSexo(usuario.getSexo());
-			usuarioReturn.setEstado(usuario.getEstado());
+			usuarioReturn.setId_estado(usuario.getId_estado());
 			usuarioRepository.save(usuarioReturn);
 			return usuarioReturn;
 			
