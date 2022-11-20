@@ -16,7 +16,7 @@ public class Tienda implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	@Column(name="idusuario")
+	@Column(name="id_usuario")
 	private Integer idUsuario;
 	private String nombre;
 	private String descripcion;
