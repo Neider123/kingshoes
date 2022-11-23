@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import com.sistema.kingshoes.repository.ITiendaRepository;
 
 @RestController
 @RequestMapping("/tiendas")
+@CrossOrigin
 public class TiendaController {
 	@Autowired
 	ITiendaRepository tiendaRepository;
@@ -46,7 +48,7 @@ public class TiendaController {
 		return null;
 		
 	}
-	@PostMapping
+	@PostMapping("/save")
 	public Tienda postTienda(@RequestBody Tienda tienda) {
 		tiendaRepository.save(tienda);
 		return tienda;
