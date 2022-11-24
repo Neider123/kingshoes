@@ -30,20 +30,18 @@ public class ProductoController {
 	}
 	
 	@GetMapping("/{id}")
-	public Optional<Producto> findProductoById(@PathVariable Integer id ){
-		Optional<Producto>producto=productoRepository.findById(id);
+	public Optional<Producto> findProductoById(@PathVariable Integer id){
+		Optional<Producto> producto=productoRepository.findById(id);
 		if(producto.isPresent()) {
 			return producto;
 		}
 		return null;
 	}
-	
 	@PostMapping("/save")
 	public Producto postProducto(@RequestBody Producto producto) {
 		productoRepository.save(producto);
 		return producto;
 	}
-	
 	@PutMapping("/{id}")
 	public Producto putProducto(@PathVariable Integer id,@RequestBody Producto producto) {
 		Optional<Producto>productoCurren=productoRepository.findById(id);
@@ -69,5 +67,7 @@ public class ProductoController {
 		}
 		return null;
 	}
+	
+	
 
 }
