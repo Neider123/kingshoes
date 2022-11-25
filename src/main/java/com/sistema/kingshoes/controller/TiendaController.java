@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sistema.kingshoes.entities.Producto;
 import com.sistema.kingshoes.entities.Tienda;
 import com.sistema.kingshoes.repository.ITiendaRepository;
 
@@ -31,7 +32,7 @@ public class TiendaController {
 		
 	}
 	
-	@GetMapping("/buscar/{id}")
+	@GetMapping("/{id}")
 	public Optional<Tienda> findTiendaById(@PathVariable Integer id) {
 		Optional<Tienda>tienda=tiendaRepository.findById(id);
 		if(tienda.isPresent()) {
@@ -47,6 +48,14 @@ public class TiendaController {
 		}
 		return null;
 		
+	}
+	@GetMapping("/{id}/productos")
+	public List<Producto> listaProductoTienda(@PathVariable Integer id){
+		Optional<Tienda>tienda=tiendaRepository.findById(id);
+		if(tienda.isPresent()) {
+			return tienda.get().getProductos();
+		}
+		return null;
 	}
 	@PostMapping("/save")
 	public Tienda postTienda(@RequestBody Tienda tienda) {

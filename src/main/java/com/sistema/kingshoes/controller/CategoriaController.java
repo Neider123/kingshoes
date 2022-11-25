@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sistema.kingshoes.entities.Categoria;
+import com.sistema.kingshoes.entities.Producto;
 import com.sistema.kingshoes.repository.ICategoriarRepository;
 
 @RestController
@@ -61,6 +62,18 @@ public class CategoriaController {
 		return c.get();
 		}
 		return null;
+	}
+	@GetMapping("/{descripcion}/productos")
+	public List<Producto> getProductosbyDescripcion(@PathVariable String descripcion) {
+		
+		List<Categoria> categoria = categoriarRepository.findByDescripcion(descripcion);
+		
+		if (!categoria.isEmpty()) {
+			return categoria.get(0).getProductos();
+		}
+		
+		return null;
+
 	}
 	
 
