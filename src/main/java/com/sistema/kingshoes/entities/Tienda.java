@@ -28,5 +28,6 @@ public class Tienda implements Serializable {
 	@OneToMany(mappedBy = "tienda")
 	private List<Producto>productos;
 	
+	
 
 }

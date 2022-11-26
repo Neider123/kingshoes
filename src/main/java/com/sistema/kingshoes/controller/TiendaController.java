@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sistema.kingshoes.entities.Marca;
 import com.sistema.kingshoes.entities.Producto;
 import com.sistema.kingshoes.entities.Tienda;
 import com.sistema.kingshoes.repository.ITiendaRepository;
@@ -57,6 +58,8 @@ public class TiendaController {
 		}
 		return null;
 	}
+	
+	
 	@PostMapping("/save")
 	public Tienda postTienda(@RequestBody Tienda tienda) {
 		tiendaRepository.save(tienda);
