@@ -48,7 +48,6 @@ public class AlmacenController {
 		Optional<Almacen>almacenCurren=almacenRepository.findById(id);
 		if(almacenCurren.isPresent()) {
 			Almacen almacenReturn =almacenCurren.get();
-			almacenReturn.setTalla(almacen.getTalla());
 			almacenReturn.setStock(almacen.getStock());
 		}
 		return null;

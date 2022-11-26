@@ -21,5 +21,6 @@ public class Almacen {
 	private Producto producto;
 	private String talla;
 	private Integer stock;
+	private String ref;
 
 }
