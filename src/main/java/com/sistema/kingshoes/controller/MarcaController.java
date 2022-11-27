@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sistema.kingshoes.entities.Marca;
+import com.sistema.kingshoes.entities.Producto;
 import com.sistema.kingshoes.repository.IMarcaRepository;
 
 @CrossOrigin
@@ -28,7 +29,7 @@ public class MarcaController {
 		return marcaRepository.findAll();
 	}
 	
-	@GetMapping("{id}")
+	@GetMapping("/{id}")
 	public Optional<Marca> findMarcaById(@PathVariable Integer id){
 		Optional<Marca> marca=marcaRepository.findById(id);
 		if(marca.isPresent()) {
@@ -44,7 +45,7 @@ public class MarcaController {
 		return marca;
 		
 	}
-	@PutMapping("{id}")
+	@PutMapping("/{id}")
 	public Marca putMarcaById(@PathVariable Integer id , @RequestBody Marca marca) {
 		Optional<Marca> marcaCurrent=marcaRepository.findById(id);
 		if(marcaCurrent.isPresent()) {
@@ -65,6 +66,15 @@ public class MarcaController {
 			return marca.get();
 		}
 		return null;
+	}
+	@GetMapping("/{id}/productos")
+	public List<Producto>listaProductos(@PathVariable Integer id ){
+		Optional<Marca>marca=marcaRepository.findById(id);
+		if(marca.isPresent()) {
+			return marca.get().getListaProductos();
+		}
+		return null;
+		
 	}
 
 }

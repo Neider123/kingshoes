@@ -24,7 +24,9 @@ public class Marca implements Serializable{
 	private Integer idTienda;
 	private String nombre;
 	private String descripcion;
-	
+	@JsonIgnore
+	@OneToMany(mappedBy = "marca")
+	private List<Producto>listaProductos;
 	
 
 }
